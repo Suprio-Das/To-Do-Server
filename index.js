@@ -9,8 +9,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get('/', (req, res) => {
-    res.send('Hola! Express server is running.');
-});
+// Creating a To-Do
+app.post('/todo', (req, res) => {
+    const data = req.body;
+    console.log(data);
+})
 
 app.listen(PORT);
