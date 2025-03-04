@@ -1,4 +1,4 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const dotenv = require('dotenv');
 const express = require('express');
 const cors = require('cors');
@@ -39,6 +39,21 @@ async function run() {
             const result = await toDoCollection.insertOne(data);
             res.send(result);
         });
+
+        // Updating To-Do
+        app.put('/todo/:id', async (req, res) => {
+            const id = req.params.id;
+            const data = req.body;
+            const filter = { _id: new ObjectId(id) };
+            const updateToDo = {
+                $set: {
+                    name: data.name,
+                    description: data.description
+                }
+            }
+            const result = await toDoCollection.updateOne(filter, updateToDo);
+            res.send(result);
+        })
     } finally {
         // await client.close();
     }
