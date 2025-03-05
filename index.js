@@ -53,6 +53,12 @@ async function run() {
             }
             const result = await toDoCollection.updateOne(filter, updateToDo);
             res.send(result);
+        });
+
+        // Delete To-Do
+        app.delete('/todo/:id', async (req, res) => {
+            const id = req.params.id;
+            console.log("Id should be deleted: ", id);
         })
     } finally {
         // await client.close();
