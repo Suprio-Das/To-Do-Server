@@ -58,7 +58,9 @@ async function run() {
         // Delete To-Do
         app.delete('/todo/:id', async (req, res) => {
             const id = req.params.id;
-            console.log("Id should be deleted: ", id);
+            const newId = new ObjectId(id);
+            const result = await toDoCollection.deleteOne({ _id: newId });
+            res.send(result);
         })
     } finally {
         // await client.close();
